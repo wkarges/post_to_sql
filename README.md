@@ -11,11 +11,11 @@ The script used is not a plug-n-play.  There are a number of variables you'll ne
 * Download and install [Python Pip](https://pypi.org/project/pip/)
 
 * Install the following Pip libraries (`pip install`):
-..* [pandas](https://pandas.pydata.org/docs/user_guide/index.html)
-..* os.path
-..* sqlite3
-..* pyodbc
-..* urllib.request
+  * [pandas](https://pandas.pydata.org/docs/user_guide/index.html)
+  * os.path
+  * sqlite3
+  * pyodbc
+  * urllib.request
 
 * Install [MS SQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or similar RDB
 
