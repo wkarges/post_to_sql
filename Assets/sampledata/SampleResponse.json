@@ -1,0 +1,38 @@
+{
+    "Service_Level": {
+        "values": [
+            [
+                1587111654000,
+                100
+            ]
+        ],
+        "unit": "Percentage(%)"
+    },
+    "CurrNumberWaitingCalls": {
+        "values": [
+            [
+                1587111654000,
+                0
+            ]
+        ],
+        "unit": ""
+    },
+    "Total_Calls_Answered": {
+        "values": [
+            [
+                1587111654000,
+                8
+            ]
+        ],
+        "unit": ""
+    },
+    "Total_Abandoned": {
+        "values": [
+            [
+                1587111654000,
+                1
+            ]
+        ],
+        "unit": ""
+    }
+}
