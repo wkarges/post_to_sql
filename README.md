@@ -6,9 +6,9 @@ The script used is not a plug-n-play.  There are a number of variables you'll ne
 
 ## Prerequisites
 
-* Download and install the latest version of [Python](https://www.python.org/downloads/)
+* Download and install the latest version of [Python](https://www.python.org/downloads/).
 
-* Download and install [Python Pip](https://pypi.org/project/pip/)
+* Download and install [Python Pip](https://pypi.org/project/pip/).
 
 * Install the following Pip libraries (`pip install`):
   * [pandas](https://pandas.pydata.org/docs/user_guide/index.html)
@@ -17,7 +17,7 @@ The script used is not a plug-n-play.  There are a number of variables you'll ne
   * pyodbc
   * urllib.request
 
-* Install [MS SQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or similar RDB
+* Install [MS SQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or similar RDB.
 
 
 
@@ -35,7 +35,7 @@ GRANT CREATE TABLE TO public
 GRANT ALTER ON OBJECT::dbo.<your_table_name> TO public
 ```
 
-Create TABLE
+`CREATE TABLE` (Optional)
 
 ```
 CREATE TABLE <YourTable> 
