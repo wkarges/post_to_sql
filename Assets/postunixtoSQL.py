@@ -53,9 +53,9 @@ if op.isfile('ten_responses.csv'):
     os.remove('ten_responses.csv')
     print("Existing ten_responses.csv, generating new file.")
 
-if op.isfile('fifteen_responses.csv'):
-    os.remove('fifteen_responses.csv')
-    print("Existing fifteen_responses.csv, generating new file.")
+if op.isfile('fif_responses.csv'):
+    os.remove('fif_responses.csv')
+    print("Existing fif_responses.csv, generating new file.")
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Script to pull down latest 'API Objects' Table.  ****This section can be commented out if you're using the local objects.csv****
@@ -96,17 +96,6 @@ with open('objects.csv') as csvfile:
         #----------------------------------------------------------------------------------------------------------------------------------------
         #Write back JSON to .csv
         
-        if op.isfile('five_responses.csv'):
-            fiveHeader = False
-        if op.isfile('ten_responses.csv'):
-            tenHeader = False
-        if op.isfile('fif_responses.csv'):
-            fifteenHeader = False
-        else:
-            fiveHeader = True
-            tenHeader = True
-            fifteenHeader = True
-
         mytimes = ["five", "ten", "fifteen"]
         for x in mytimes:
             newresponse = x
@@ -133,24 +122,39 @@ with open('objects.csv') as csvfile:
                 fifdf = df
         
         #Evaluate whether to write header
+        if op.isfile('five_responses.csv'):
+            fiveHeader = False
+        else:
+            fiveHeader = True
+        if op.isfile('ten_responses.csv'):
+            tenHeader = False
+        else:
+            tenHeader = True
+        if op.isfile('fif_responses.csv'):
+            fifteenHeader = False
+        else:
+            fifteenHeader = True
+
         if fiveHeader is True:
             fivedf.to_csv('five_responses.csv', mode='w', header=True)
             fiveHeader = False
+        else:
+            fivedf.to_csv('five_responses.csv', mode='a', header=False)
         if tenHeader is True:
             tendf.to_csv('ten_responses.csv', mode='w', header=True)
             tenHeader = False
+        else:
+            tendf.to_csv('ten_responses.csv', mode='a', header=False)
         if fifteenHeader is True:
             fifdf.to_csv('fif_responses.csv', mode='w', header=True)
             fifteenHeader = False
-            print("Writing header row")
         else:
-            fivedf.to_csv('five_responses.csv', mode='a', header=False)
-            tendf.to_csv('ten_responses.csv', mode='a', header=False)
             fifdf.to_csv('fif_responses.csv', mode='a', header=False)
-            print("Appending ", myobject, "to responses.csv")
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Open SQL Connection, upload .csv to SQL.
+
+# ***NEED TO WRITE SQL SCRIPTS FOR ALL 3 DATABASES***
 
 """
 # ****IMPORTANT**** - YOU NEED TO UPDATE THE SERVER AND DATABASE FIELDS ↓ BELOW ↓
