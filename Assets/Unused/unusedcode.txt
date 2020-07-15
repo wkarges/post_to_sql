@@ -67,3 +67,42 @@ print("Updating SQL table with responses.csv")
 
 # mydf = pd.DataFrame(table)
 # mydf.drop(['tableId', 'tableName', 'tableDescription', 'tableLastModified', 'tableCreatedDate', 'row_id', 'row_lastModified', 'row_createdDate', 'Objects_name', 'Objects_id', '_fwi_condition'], axis = 1)
+
+        """
+        # Append Unix times and current object to JSON body
+        my_five_json = {"filters":{"objectname":[myobject]},"from":fm,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
+        my_ten_json = {"filters":{"objectname":[myobject]},"from":tm,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
+        my_fifteen_json = {"filters":{"objectname":[myobject]},"from":fifm,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
+
+        #Make post request with JSON body
+        five_request = requests.post(post_url, json=my_five_json)
+        ten_request = requests.post(post_url, json=my_ten_json)
+        fif_request = requests.post(post_url, json=my_fifteen_json)
+
+        five_response = five_request.json()
+        ten_response = ten_request.json()
+        fif_response = fif_request.json()
+
+        """
+
+        #generate .csv names
+        mytime = z
+        csvname = mytime.strip() + "_response.csv"
+        print(csvname)
+
+        #make POST request
+        my_json = {"filters":{"objectname":[myobject]},"from":y,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
+        my_request = requests.post(post_url, json=my_json)
+        my_response = my_request.json()
+
+                #Set Dataframe as JSON response
+        mydata = pd.read_json("C:\Projects\PayPal\Assets\sampledata\SampleResponse.json") # <-- This field should be five_response in production.
+
+        df = pd.DataFrame(mydata)
+
+        #drop Unit row from .csv
+        df = df[:-1]
+        
+        #Set Index name
+        df.index.name = 'Objects'
+        df.index.values[0] = myobject
