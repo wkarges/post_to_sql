@@ -2,7 +2,7 @@
 
 This project uses a combination of python script and .csvs to make dynamic POST requests and aggrigate the JSON responses into a SQL table.  This was built for a very specific client use case and likely has limited ability to be repurposed.
 
-The script used is not a plug-n-play.  There are a number of variables you'll need to be sure to update in the `postunixtoSQL.py` file.  All of these required updates are called out in this tutorial.
+The script used is not a plug-n-play.  There are a number of variables you'll need to be sure to update in the [postunixtoSQL.py](postunixtoSQL.py) file.  All of these required updates are called out in this tutorial.
 
 ## Prerequisites
 
