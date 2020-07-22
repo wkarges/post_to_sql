@@ -39,7 +39,10 @@ GRANT CREATE TABLE TO public
 GRANT ALTER ON OBJECT::dbo.<your_table_name> TO public
 ```
 
-`CREATE TABLE` (Optional)
+`CREATE TABLE` - One for each of the following:
+ * five_table
+ * ten_table
+ * fifteen_table
 
 ```
 CREATE TABLE <YourTable> 

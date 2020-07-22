@@ -1,3 +1,11 @@
+########################################################################################################################################
+# Written by William Karges - July 2020
+
+########################################################################################################################################
+"""
+The purpose of this script is to consolidate all of the client's desired data into a single SQL database from numerous POST requests.
+"""
+
 import time
 import csv
 import sqlalchemy
@@ -10,6 +18,7 @@ import os
 import pyodbc
 import urllib.request as urlr
 import io
+import pathlib
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Global Variables
@@ -22,6 +31,18 @@ post_url = 'https://httpbin.org/post' # <-- Update with your POST URL
 
 # Set Metric Names => Metrics you want to pull from request
 metric_names = "Service_Level", "CurrNumberWaitingCalls", "Total_Calls_Answered", "Total_Abandoned"
+
+# Open SQL connection, need to update Server and DB fields ↓ BELOW ↓
+conn = pyodbc.connect('Driver={SQL Server};'
+                        'Server=DESKTOP-V8I0892\SQLEXPRESS;' # <-- Need to update Server name (probably something like <yourServerName\SQLExpress)
+                        'Database=post_test;' # <-- Need to update DB name
+                        'Trusted_Connection=yes;')
+
+# Set different times **DO NOT MODIFY**
+mytimes = ["five", "ten", "fifteen"]
+
+# Set Asset filepath
+mypath = os.getcwd() + "\\Assets\\"
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Make Time Calculations, These may need to be adjusted per client request
@@ -45,17 +66,15 @@ times = [fm, tm, fifm]
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Reset responses csvs
-if op.isfile('five_responses.csv'):
-    os.remove('five_responses.csv')
-    print("Existing five_responses.csv, generating new file.")
+for x in mytimes:
+    thetime = x
+    setpath = mypath + thetime.strip() + "_responses.csv"
+    setcsv = thetime.strip() + "_responses.csv"
+    print(setpath)
 
-if op.isfile('ten_responses.csv'):
-    os.remove('ten_responses.csv')
-    print("Existing ten_responses.csv, generating new file.")
-
-if op.isfile('fif_responses.csv'):
-    os.remove('fif_responses.csv')
-    print("Existing fif_responses.csv, generating new file.")
+    if op.isfile(setpath):
+        os.remove(setpath)
+        print("Existing ", setcsv, " found, generating new file.")
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Script to pull down latest 'API Objects' Table.  ****This section can be commented out if you're using the local objects.csv****
@@ -64,12 +83,14 @@ if op.isfile('fif_responses.csv'):
 table = pd.read_csv(csv_url)
 keep = ['Objects']
 new_file = table[keep]
-new_file.to_csv('objects.csv', sep=',', index=False)
+new_file.to_csv(mypath+'objects.csv', sep=',', index=False)
 # """"
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Parse objects and appy each one to each POST Request
-with open('objects.csv') as csvfile:
+
+
+with open(mypath+'objects.csv') as csvfile:
     reader = csv.reader(csvfile)
     next(csvfile)
     for x in csvfile:
@@ -82,24 +103,16 @@ with open('objects.csv') as csvfile:
         my_ten_json = {"filters":{"objectname":[myobject]},"from":tm,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
         my_fifteen_json = {"filters":{"objectname":[myobject]},"from":fifm,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
 
-        #Make post request with JSON body
-        five_request = requests.post(post_url, json=my_five_json)
-        ten_request = requests.post(post_url, json=my_ten_json)
-        fif_request = requests.post(post_url, json=my_fifteen_json)
-
-        five_response = five_request.json()
-        ten_response = ten_request.json()
-        fif_response = fif_request.json()
-
-        print("Status Codes:  ", "fiveminrequest:", five_request.status_code, "tenminrequest:", ten_request.status_code, "fifteenminrequest:", fif_request.status_code, "  -- For Object: ", myobject)
-
         #----------------------------------------------------------------------------------------------------------------------------------------
         #Write back JSON to .csv
-        
-        mytimes = ["five", "ten", "fifteen"]
+
         for x in mytimes:
-            newresponse = x
-            my_response = newresponse.strip() + "_response"
+            curr_time = x
+            my_json = "my_" + curr_time.strip() + "_json"
+            my_request = requests.post(post_url, json=my_json)
+            my_response = my_request.json()
+
+            print(myobject, curr_time, " -- ", "request: ", "Status Code ", my_request.status_code)
             
             #Set Dataframe as JSON response
             mydata = pd.read_json("C:\Projects\PayPal\Assets\sampledata\SampleResponse.json") # <-- This field should be my_response in production.
@@ -121,69 +134,62 @@ with open('objects.csv') as csvfile:
             if x == "fifteen":
                 fifdf = df
         
+        #----------------------------------------------------------------------------------------------------------------------------------------
         #Evaluate whether to write header
-        if op.isfile('five_responses.csv'):
+
+        print("Compiling .csv for", myobject)
+        if op.isfile(mypath+'five_responses.csv'):
             fiveHeader = False
         else:
             fiveHeader = True
-        if op.isfile('ten_responses.csv'):
+        if op.isfile(mypath+'ten_responses.csv'):
             tenHeader = False
         else:
             tenHeader = True
-        if op.isfile('fif_responses.csv'):
+        if op.isfile(mypath+'fifteen_responses.csv'):
             fifteenHeader = False
         else:
             fifteenHeader = True
 
         if fiveHeader is True:
-            fivedf.to_csv('five_responses.csv', mode='w', header=True)
+            fivedf.to_csv(mypath+'five_responses.csv', mode='w', header=True)
             fiveHeader = False
         else:
-            fivedf.to_csv('five_responses.csv', mode='a', header=False)
+            fivedf.to_csv(mypath+'five_responses.csv', mode='a', header=False)
         if tenHeader is True:
-            tendf.to_csv('ten_responses.csv', mode='w', header=True)
+            tendf.to_csv(mypath+'ten_responses.csv', mode='w', header=True)
             tenHeader = False
         else:
-            tendf.to_csv('ten_responses.csv', mode='a', header=False)
+            tendf.to_csv(mypath+'ten_responses.csv', mode='a', header=False)
         if fifteenHeader is True:
-            fifdf.to_csv('fif_responses.csv', mode='w', header=True)
+            fifdf.to_csv(mypath+'fifteen_responses.csv', mode='w', header=True)
             fifteenHeader = False
         else:
-            fifdf.to_csv('fif_responses.csv', mode='a', header=False)
+            fifdf.to_csv(mypath+'fifteen_responses.csv', mode='a', header=False)
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# Open SQL Connection, upload .csv to SQL.
-
-# ***NEED TO WRITE SQL SCRIPTS FOR ALL 3 DATABASES***
-
-"""
-# ****IMPORTANT**** - YOU NEED TO UPDATE THE SERVER AND DATABASE FIELDS ↓ BELOW ↓
-print("Connecting to SQL")
-conn = pyodbc.connect('Driver={SQL Server};'
-                        'Server=<YOURSERVERNAME>;' # <-- Need to update Server name (probably something like <yourServerName\SQLExpress)
-                        'Database=<YOURDATABASENAME>;' # <-- Need to update DB name
-                        'Trusted_Connection=yes;')
-
-print("Successfully Connected to SQL ")
-
-# Update the File path below to read from your response.csv
-read_responses = pd.read_csv(r'responses.csv') # <-- May need to update file path
+# Upload .csv to SQL.
 
 cursor = conn.cursor()
 
-print("Clear out existing sql table to make room for updated .csv.")
-cursor.execute("DELETE FROM <YOURDBNAME>") # <--Update with your DB name
+for x in mytimes:
+    currdb_time = x
+    mycsv = currdb_time.strip() + "_responses.csv"
+    mytable = currdb_time.strip() + "_table"
+    thepath = mypath + mycsv
+    read_responses = pd.read_csv(thepath)
+    
+    print("Clear out existing ", mytable, "to make room for updated csv.")
+    cursor.execute("DELETE FROM " + mytable.strip())
 
-print("Updating SQL table with responses.csv")
-for index, row in read_responses.iterrows():
-    print(row)
-    # Make sure you update your DB name below ↓
-    cursor.execute("INSERT INTO <YOURDBNAME>([Objects],[Service_Level],[CurrNumberWaitingCalls],[Total_Calls_Answered],[Total_Abandoned]) values(?,?,?,?,?)", row['Objects'], row['Service_Level'], row['CurrNumberWaitingCalls'], row['Total_Calls_Answered'], row['Total_Abandoned'])
+    print("Updating ", mytable, "with", mycsv)
+    for index, row in read_responses.iterrows():
+        print(row)
+        myscript = "INSERT INTO " + mytable.strip() + "([Objects],[Service_Level],[CurrNumberWaitingCalls],[Total_Calls_Answered],[Total_Abandoned]) values(?,?,?,?,?)"
+        cursor.execute(myscript, row['Objects'], row['Service_Level'], row['CurrNumberWaitingCalls'], row['Total_Calls_Answered'], row['Total_Abandoned'])
 
 conn.commit()
 cursor.close()
 conn.close()
-"""
-
 
 #----------------------------------------------------------------------------------------------------------------------------------------

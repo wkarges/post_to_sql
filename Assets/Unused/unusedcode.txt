@@ -106,3 +106,33 @@ print("Updating SQL table with responses.csv")
         #Set Index name
         df.index.name = 'Objects'
         df.index.values[0] = myobject
+
+        
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        # my_response = cur_time.strip() + "_response"
+
+        """
+        #Make post request with JSON body
+        five_request = requests.post(post_url, json=my_five_json)
+        ten_request = requests.post(post_url, json=my_ten_json)
+        fif_request = requests.post(post_url, json=my_fifteen_json)
+
+        five_response = five_request.json()
+        ten_response = ten_request.json()
+        fif_response = fif_request.json()
+
+        print("Status Codes:  ", "fiveminrequest:", five_request.status_code, "tenminrequest:", ten_request.status_code, "fifteenminrequest:", fif_request.status_code, "  -- For Object: ", myobject)
+        """
+
+        if op.isfile('five_responses.csv'):
+    os.remove('five_responses.csv')
+    print("Existing five_responses.csv, generating new file.")
+
+if op.isfile('ten_responses.csv'):
+    os.remove('ten_responses.csv')
+    print("Existing ten_responses.csv, generating new file.")
+
+if op.isfile('fifteen_responses.csv'):
+    os.remove('fifteen_responses.csv')
+    print("Existing fif_responses.csv, generating new file.")
