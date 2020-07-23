@@ -15,7 +15,6 @@ import pandas as pd
 import os.path as op 
 import os
 import pyodbc
-import sqlite3 as sq3
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Global Variables
@@ -26,8 +25,7 @@ csv_url = "https://api.fwicloud.com/library/v1/company/c12c4596-b635-42d9-9392-2
 # Set POST URL
 post_url = 'https://httpbin.org/post' # <-- Update with your POST URL
 
-# Set Metric Names => Metrics you want to pull from request 
-# **Warning** If you modify these fields, you will also need to update the `myscript` SQL query in the last code section.
+# Set Metric Names => Metrics you want to pull from request
 metric_names = "Service_Level", "CurrNumberWaitingCalls", "Total_Calls_Answered", "Total_Abandoned"
 
 # Open SQL connection, need to update Server and DB fields ↓ BELOW ↓
@@ -36,11 +34,8 @@ conn = pyodbc.connect('Driver={SQL Server};'
                         'Database=post_test;' # <-- Need to update DB name
                         'Trusted_Connection=yes;')
 
-# If username/pass and/or remote connection is required for SQL, comment out the code above and use the script ↓ BELOW ↓
-# conn = pyodbc.connect('DRIVER={FreeTDS};SERVER=yourserver.com;PORT=1433;DATABASE=your_db;UID=your_username;PWD=your_password;TDS_Version=7.2;')
-
 # Set different times **MAY BREAK CODE IF MODIFIED**
-mytimes = ["a", "b", "c"]
+mytimes = ["five", "ten", "fifteen"]
 
 # Set Asset filepath
 mypath = os.getcwd() + "\\Assets\\"
@@ -58,9 +53,9 @@ def fifteenmins():
     return int(time.time()-(15 * 60))
 
 now = int(time.time())
-atime = fivemins()
-btime = tenmins()
-ctime = fifteenmins()
+fm = fivemins()
+tm = tenmins()
+fifm = fifteenmins()
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Reset responses csvs
@@ -97,9 +92,9 @@ with open(mypath+'objects.csv') as csvfile:
         myobject = myobject[:-1] # <-- Remove trailing spaces from my object.  This code can be removed if using local .csv.               
 
         # Append Unix times and current object to JSON body
-        my_five_json = {"filters":{"objectname":[myobject]},"from":atime,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
-        my_ten_json = {"filters":{"objectname":[myobject]},"from":btime,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
-        my_fifteen_json = {"filters":{"objectname":[myobject]},"from":ctime,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
+        my_five_json = {"filters":{"objectname":[myobject]},"from":fm,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
+        my_ten_json = {"filters":{"objectname":[myobject]},"from":tm,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
+        my_fifteen_json = {"filters":{"objectname":[myobject]},"from":fifm,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
 
         #----------------------------------------------------------------------------------------------------------------------------------------
         #Write back JSON to .csv
@@ -125,45 +120,45 @@ with open(mypath+'objects.csv') as csvfile:
             df.index.values[0] = myobject
 
             # Set Dataframes
-            if x == "a":
-                adf = df
-            if x == "b":
-                bdf = df
-            if x == "c":
-                cdf = df
+            if x == "five":
+                fivedf = df
+            if x == "ten":
+                tendf = df
+            if x == "fifteen":
+                fifdf = df
         
         #----------------------------------------------------------------------------------------------------------------------------------------
         #Evaluate whether to write header
 
         print("Compiling .csv for", myobject)
-        if op.isfile(mypath+'a_responses.csv'):
-            aHeader = False
+        if op.isfile(mypath+'five_responses.csv'):
+            fiveHeader = False
         else:
-            aHeader = True
-        if op.isfile(mypath+'b_responses.csv'):
-            bHeader = False
+            fiveHeader = True
+        if op.isfile(mypath+'ten_responses.csv'):
+            tenHeader = False
         else:
-            bHeader = True
-        if op.isfile(mypath+'c_responses.csv'):
-            cHeader = False
+            tenHeader = True
+        if op.isfile(mypath+'fifteen_responses.csv'):
+            fifteenHeader = False
         else:
-            cHeader = True
+            fifteenHeader = True
 
-        if aHeader is True:
-            adf.to_csv(mypath+'a_responses.csv', mode='w', header=True)
-            aHeader = False
+        if fiveHeader is True:
+            fivedf.to_csv(mypath+'five_responses.csv', mode='w', header=True)
+            fiveHeader = False
         else:
-            adf.to_csv(mypath+'a_responses.csv', mode='a', header=False)
-        if bHeader is True:
-            bdf.to_csv(mypath+'b_responses.csv', mode='w', header=True)
-            bHeader = False
+            fivedf.to_csv(mypath+'five_responses.csv', mode='a', header=False)
+        if tenHeader is True:
+            tendf.to_csv(mypath+'ten_responses.csv', mode='w', header=True)
+            tenHeader = False
         else:
-            bdf.to_csv(mypath+'b_responses.csv', mode='a', header=False)
-        if cHeader is True:
-            cdf.to_csv(mypath+'c_responses.csv', mode='w', header=True)
-            cHeader = False
+            tendf.to_csv(mypath+'ten_responses.csv', mode='a', header=False)
+        if fifteenHeader is True:
+            fifdf.to_csv(mypath+'fifteen_responses.csv', mode='w', header=True)
+            fifteenHeader = False
         else:
-            cdf.to_csv(mypath+'c_responses.csv', mode='a', header=False)
+            fifdf.to_csv(mypath+'fifteen_responses.csv', mode='a', header=False)
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Upload .csv to SQL.

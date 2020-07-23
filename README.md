@@ -33,9 +33,9 @@ Let's get the SQL environment ready where we'll be storing and aggrigating your 
 First create a table for each time range.  Right now these are for 5, 10, and 15 minutes but this is subject to change.
 
 `CREATE TABLE` - One for each of the following:
- * five_table
- * ten_table
- * fifteen_table
+ * a_table
+ * b_table
+ * c_table
 
 ```
 CREATE TABLE <YourTable> 
