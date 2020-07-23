@@ -136,3 +136,9 @@ if op.isfile('ten_responses.csv'):
 if op.isfile('fifteen_responses.csv'):
     os.remove('fifteen_responses.csv')
     print("Existing fif_responses.csv, generating new file.")
+
+    # import urllib.request as urlr # <-- Currently unused
+# import io 
+# import pathlib
+# import sqlite3 as sq
+# import sqlalchemy # <-- Currently unused

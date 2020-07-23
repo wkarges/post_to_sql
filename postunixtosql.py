@@ -1,24 +1,20 @@
 ########################################################################################################################################
+
 # Written by William Karges - July 2020
+# The purpose of this script is to consolidate all of the client's desired data into a single SQL database from numerous POST requests.
+# Go to https://github.com/wkarges/post_to_sql for full documenation.
 
 ########################################################################################################################################
-"""
-The purpose of this script is to consolidate all of the client's desired data into a single SQL database from numerous POST requests.
-"""
+# Import necessary libs
 
 import time
 import csv
-import sqlalchemy
 import json
 import requests
 import pandas as pd
-import os.path as op
-import sqlite3 as sq
+import os.path as op 
 import os
 import pyodbc
-import urllib.request as urlr
-import io
-import pathlib
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Global Variables
@@ -38,7 +34,7 @@ conn = pyodbc.connect('Driver={SQL Server};'
                         'Database=post_test;' # <-- Need to update DB name
                         'Trusted_Connection=yes;')
 
-# Set different times **DO NOT MODIFY**
+# Set different times **MAY BREAK CODE IF MODIFIED**
 mytimes = ["five", "ten", "fifteen"]
 
 # Set Asset filepath
@@ -60,9 +56,6 @@ now = int(time.time())
 fm = fivemins()
 tm = tenmins()
 fifm = fifteenmins()
-
-# Time arrays currently unused
-times = [fm, tm, fifm]
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # Reset responses csvs
