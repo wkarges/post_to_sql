@@ -160,4 +160,6 @@ With your variables adjusted you should be able to run your script and see the r
 
 If everything is configured correctly, you should get a successful execution script similar to [this](Assets/sampledata/successfulexecute.txt).
 
+![cmdExecutionSuccess.png](images/cmdExecutionSuccess.png)
+
 
