@@ -89,4 +89,5 @@ GRANT ALTER ON OBJECT::dbo.<your_table_name> TO public
 
 With your SQL tables we can go ahead and configure the script.  Open up the [postunixtosql.py](postunixtosql.py) and navigate to the `Global Variables` section.  They should be mostly self explanitory but I'll provide full descriptions below.
 
+### `csv_url`
 
