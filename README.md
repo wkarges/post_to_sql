@@ -122,6 +122,8 @@ The `metric_names` variable allows you to define the specific metrics you want t
 
 As previously mentioned, if you choose to modify this list your will also need to update the SQL query inside the `myscript` variable and `cursor.execute` in section 7.  I would discourage anyone not versed in SQL queries from making adjustments here.
 
+![SQLMetricNames.png](images/SQLMetricNames.png)
+
 ### `myfileheaders` (Adjustment Optional)
 
 The `myfileheaders` variable appends a unique identifier at the front of the different time range .csvs and SQL tables.
