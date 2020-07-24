@@ -39,11 +39,15 @@ By default this script uses Four Winds Interactive's FWI Cloud Tables (essential
 
 The next fields to solve for are the `from` and `to` unix times required in the JSON body.
 
-![UnixTimes.png](images/UnixTimes.png)
+EXAMPLE: ![UnixTimes.png](images/UnixTimes.png)
 
 This POST request requires us to define the exact time range for which we want to see data.  This script defaults to three time ranges: 5, 10, and 15 minutes but these can easily be adjusted in section 3 (will explain further below).  You can also use the [postunixtosql_single.py](Assets/Unused/postunixtosql_single.py) script in the Assets/Unused folder if you only want metrics for a single time range.
 
+### Metric Names
 
+Finally the POST request allows you to define the specific metrics for which you want to pull data for each object.  While you can adjust these using the `metric_names` variable in section 2, you'll also need to update the SQL query in the `myscript` variable at the bottom of section 7 (explained further below).
+
+EXAMPLE: ![MetricNames.png](images/MetricNames.png)
 
 ## Getting Started
 
