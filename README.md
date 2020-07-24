@@ -93,7 +93,7 @@ With your SQL tables we can go ahead and configure the script.  Open up the [pos
 
 ![GlobalVariables.png](images/GlobalVariables.png)
 
-The first three variables require adjustment for the script to work, the rest are optional.
+**NOTE:** The first three variables require adjustment for the script to work, the rest are optional.
 
 ### `csv_url` (Adjustment Required)
 
