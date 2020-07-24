@@ -1,4 +1,4 @@
-# Dynamic Post Request - Response to SQL
+# Dynamic Post Request - Write Response to SQL
 
 This project uses a combination of python script and .csvs to make dynamic POST requests and aggrigate the JSON responses into a SQL table.  This was built for a very specific client use case and likely has limited ability to be repurposed without code modifications.  To be sure check the [SampleRequestBody.json](Assets/sampledata/SampleRequestBody.json) and the [SampleResponse.json](Assets/sampledata/SampleResponse.json) files to see whether the schema matches your API.
 
@@ -90,4 +90,24 @@ GRANT ALTER ON OBJECT::dbo.<your_table_name> TO public
 With your SQL tables we can go ahead and configure the script.  Open up the [postunixtosql.py](postunixtosql.py) and navigate to the `Global Variables` section.  They should be mostly self explanitory but I'll provide full descriptions below.
 
 ### `csv_url`
+
+The `csv_url` variable requires the .csv Content Manager link from FWI Cloud for your Objects Table.  If you don't already have this table created, you can simply upload the [objects.csv](Assets/objects.csv) as a Table.
+
+As previously mentioned, if you don't plan on using an FWI Cloud table, you can just as easily use comment out this variable and all of section 5 and simply update the [objects.csv](Assets/objects.csv) in the Assets folder.
+
+### `post_url`
+
+The `post_url` variable is simply the http/https address of the API you're making POST requests to.
+
+### `conn`
+
+The `conn` variable opens up the connection to your SQL database.  By default this script assumes it's running on the same machine as your SQL server and you've granted public write access as documented in the section above.  
+
+If your SQL server database has remote and/or credential requirements, you can comment out this variable and uncomment the `conn` below.  It "should" work but I haven't fully tested it so you may need to adjust some of the code on your own (probably start with the `pyodbc.connect` documentation.
+
+If you are using the 
+
+### `metric_names`
+
+
 

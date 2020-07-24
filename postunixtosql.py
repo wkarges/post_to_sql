@@ -26,10 +26,6 @@ csv_url = "<YOURCLOUDTABLE>" # <-- Update with your FWI Cloud Table .csv
 # Set POST URL
 post_url = '<YOURPOSTURL>' # <-- Update with your POST URL
 
-# Set Metric Names => Metrics you want to pull from request 
-# **Warning** If you modify these fields, you will also need to update the `myscript` SQL query in the last code section.
-metric_names = "Service_Level", "CurrNumberWaitingCalls", "Total_Calls_Answered", "Total_Abandoned"
-
 # Open SQL connection, need to update Server and DB fields ↓ BELOW ↓
 conn = pyodbc.connect('Driver={SQL Server};'
                         'Server=<YOURSQL>\SQLEXPRESS;' # <-- Need to update Server name (probably something like <yourServerName\SQLExpress)
@@ -37,9 +33,13 @@ conn = pyodbc.connect('Driver={SQL Server};'
                         'Trusted_Connection=yes;')
 
 # If username/pass and/or remote connection is required for SQL, comment out the code above and use the script ↓ BELOW ↓
-# conn = pyodbc.connect('DRIVER={FreeTDS};SERVER=yourserver.com;PORT=1433;DATABASE=your_db;UID=your_username;PWD=your_password;TDS_Version=7.2;')
+# conn = pyodbc.connect('DRIVER={FreeTDS};SERVER=<yourserver>;PORT=1433;DATABASE=your_db;UID=your_username;PWD=your_password;TDS_Version=7.2;')
 
-# Set Time Headers **Do not modify**
+# Set Metric Names => Metrics you want to pull from request 
+# **Warning** If you modify these fields, you will also need to update the `myscript` SQL query in the last code section.
+metric_names = "Service_Level", "CurrNumberWaitingCalls", "Total_Calls_Answered", "Total_Abandoned"
+
+# Set Time Headers **Important** Please carefully review the README before adjusting.
 mytimes = ["a", "b", "c"]
 
 # Set Asset filepath
