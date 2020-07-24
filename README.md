@@ -47,7 +47,7 @@ This POST request requires us to define the exact time range for which we want t
 
 ### Metric Names
 
-Finally the POST request allows you to define the specific metrics for which you want to pull data for each object.  While you can adjust these using the `metric_names` variable in section 2, you'll also need to update the SQL query in the `myscript` variable at the bottom of section 7 (explained further below).
+Finally the POST request allows you to define the specific metrics for which you want to pull data for each object.  While you can adjust these using the `metric_names` variable in section 2 but you'll also need to update the SQL query in the `myscript` variable and `cursor.execute` at the bottom of section 7 (explained further below).
 
 EXAMPLE: ![MetricNames.png](images/MetricNames.png)
 
@@ -120,7 +120,7 @@ Assuing you're using the default script you'll only need to update two fields:
 
 The `metric_names` variable allows you to define the specific metrics you want to see data with each object.  This variable simply appends to the JSON body of your POST request.
 
-As previously mentioned, if you choose to modify this list your will also need to update the SQL query inside the `myscript` variable in section 7.  I would discourage anyone not versed in SQL queries from making adjustments here.
+As previously mentioned, if you choose to modify this list your will also need to update the SQL query inside the `myscript` variable and `cursor.execute` in section 7.  I would discourage anyone not versed in SQL queries from making adjustments here.
 
 ### `myfileheaders` (Adjustment Optional)
 
@@ -131,9 +131,9 @@ It's extremely important to note, if you want to change this naming convention y
 You'll need to change the `if` conditions for each dataframe at the bottom of section 6.1.
 
 ```
-if x == "<your_new_fileheader_a>":
-... "<your_new_fileheader_b>"
-... "<your_new_fileheader_c>"
+if x == "<your_first_new_fileheader>":
+... "<your_second_new_fileheader>"
+... "<your_third_new_fileheader>"
 ```
 
 ![setdf_fileheaders.png](images/setdf_fileheaders.png)
