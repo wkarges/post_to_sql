@@ -4,6 +4,19 @@ This project uses a combination of python script and .csvs to make dynamic POST 
 
 The script used is not a plug-n-play.  There are a number of variables you'll need to be sure to update in the [postunixtosql.py](postunixtosql.py) file.  All of these required updates are called out in this tutorial.
 
+## What this Script Does
+
+This script is used to address the complex requirements in the JSON body of this POST request.
+
+![RequestExample.png](images/RequestExample.png)
+
+The fields underlined in red are our primary focus but we'll address all the fields starting from the left.
+
+### Object Name
+
+The `"objectname":[*"NA_SSP_Transaction_HSL_Voice"*]}`
+
+
 ## Prerequisites
 
 * Download and install the latest version of [Python](https://www.python.org/downloads/).
@@ -56,4 +69,10 @@ GRANT CREATE TABLE TO public
 GRANT ALTER ON OBJECT::dbo.<your_table_name> TO public
 ```
 
-![sqltablecreation.png](images/sqltablecreation.png)
+![sqltablecreation2.png](images/sqltablecreation2.png)
+
+## Updating the variables
+
+With your SQL tables we can go ahead and configure the script.  Open up the [postunixtosql.py](postunixtosql.py) and navigate to the `Global Variables` section.  They should be mostly self explanitory but I'll provide full descriptions below.
+
+

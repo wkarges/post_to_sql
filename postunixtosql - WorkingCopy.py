@@ -5,7 +5,7 @@
 # Go to https://github.com/wkarges/post_to_sql for full documenation.
 
 ########################################################################################################################################
-# 1. Import necessary libs
+# Import necessary libs
 
 import time
 import csv
@@ -18,13 +18,13 @@ import pyodbc
 import sqlite3 as sq3
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 2. Global Variables
+# Global Variables
 
 # 'API Objects' Cloud Table URL -> Specifically your desired objects to be aggregated.  Not needed if you're using a local objects.csv
-csv_url = "<YOURCLOUDTABLE>" # <-- Update with your FWI Cloud Table .csv
+csv_url = "https://api.fwicloud.com/library/v1/company/c12c4596-b635-42d9-9392-2da67b69a25c/tables/39c648cd-e774-446b-82f8-d6dad449529e/csv" # <-- Update with your FWI Cloud Table .csv
 
 # Set POST URL
-post_url = '<YOURPOSTURL>' # <-- Update with your POST URL
+post_url = 'https://httpbin.org/post' # <-- Update with your POST URL
 
 # Set Metric Names => Metrics you want to pull from request 
 # **Warning** If you modify these fields, you will also need to update the `myscript` SQL query in the last code section.
@@ -32,8 +32,8 @@ metric_names = "Service_Level", "CurrNumberWaitingCalls", "Total_Calls_Answered"
 
 # Open SQL connection, need to update Server and DB fields ↓ BELOW ↓
 conn = pyodbc.connect('Driver={SQL Server};'
-                        'Server=<YOURSQL>\SQLEXPRESS;' # <-- Need to update Server name (probably something like <yourServerName\SQLExpress)
-                        'Database=,<YOURDB>;' # <-- Need to update DB name
+                        'Server=DESKTOP-V8I0892\SQLEXPRESS;' # <-- Need to update Server name (probably something like <yourServerName\SQLExpress)
+                        'Database=post_test;' # <-- Need to update DB name
                         'Trusted_Connection=yes;')
 
 # If username/pass and/or remote connection is required for SQL, comment out the code above and use the script ↓ BELOW ↓
@@ -46,7 +46,7 @@ mytimes = ["a", "b", "c"]
 mypath = os.getcwd() + "\\Assets\\"
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 3. Make Time Calculations. These may need to be adjusted per client request.
+# Make Time Calculations. These may need to be adjusted per client request.
 
 def fivemins():
     return int(time.time()-(5 * 60))
@@ -63,7 +63,7 @@ btime = tenmins()
 ctime = fifteenmins()
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 4. Reset responses csvs
+# Reset responses csvs
 for x in mytimes:
     thetime = x
     setpath = mypath + thetime.strip() + "_responses.csv"
@@ -75,7 +75,7 @@ for x in mytimes:
         print("Existing ", setcsv, " found, generating new file.")
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 5. Script to pull down latest 'API Objects' Table.  ****This section can be commented out if you're using the local objects.csv****
+# Script to pull down latest 'API Objects' Table.  ****This section can be commented out if you're using the local objects.csv****
 
 # """" <-- Remove pound signs above and below script if using local .csv
 table = pd.read_csv(csv_url)
@@ -85,7 +85,7 @@ new_file.to_csv(mypath+'objects.csv', sep=',', index=False)
 # """"
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 6. Parse objects and appy each one to each POST Request
+# Parse objects and appy each one to each POST Request
 
 
 with open(mypath+'objects.csv') as csvfile:
@@ -102,7 +102,7 @@ with open(mypath+'objects.csv') as csvfile:
         my_fifteen_json = {"filters":{"objectname":[myobject]},"from":ctime,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
 
         #----------------------------------------------------------------------------------------------------------------------------------------
-        # 6.1 Write back JSON to .csv
+        #Write back JSON to .csv
 
         for x in mytimes:
             curr_time = x
@@ -113,7 +113,7 @@ with open(mypath+'objects.csv') as csvfile:
             print(myobject, curr_time, " -- ", "request: ", "Status Code ", my_request.status_code)
             
             #Set Dataframe as JSON response
-            mydata = pd.read_json(my_response) # <-- This field should be my_response in production.
+            mydata = pd.read_json("C:\Projects\PayPal\Assets\sampledata\SampleResponse.json") # <-- This field should be my_response in production.
 
             df = pd.DataFrame(mydata)
 
@@ -133,7 +133,7 @@ with open(mypath+'objects.csv') as csvfile:
                 cdf = df
         
         #----------------------------------------------------------------------------------------------------------------------------------------
-        # 6.2 Evaluate whether to write header
+        #Evaluate whether to write header
 
         print("Compiling .csv for", myobject)
         if op.isfile(mypath+'a_responses.csv'):
@@ -166,7 +166,7 @@ with open(mypath+'objects.csv') as csvfile:
             cdf.to_csv(mypath+'c_responses.csv', mode='a', header=False)
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 7. Upload .csv to SQL.
+# Upload .csv to SQL.
 
 cursor = conn.cursor()
 
