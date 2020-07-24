@@ -93,17 +93,17 @@ With your SQL tables we can go ahead and configure the script.  Open up the [pos
 
 ![GlobalVariables.png](images/GlobalVariables.png)
 
-### `csv_url`
+### `csv_url` (Adjustment Required)
 
 The `csv_url` variable requires the .csv Content Manager link from FWI Cloud for your Objects Table.  If you don't already have this table created, you can simply upload the [objects.csv](Assets/objects.csv) as a Table.
 
 As previously mentioned, if you don't plan on using an FWI Cloud table, you can just as easily use comment out this variable and all of section 5 and simply update the [objects.csv](Assets/objects.csv) in the Assets folder.
 
-### `post_url`
+### `post_url` (Adjustment Required)
 
 The `post_url` variable is simply the http/https address of the API you're making POST requests to.
 
-### `conn`
+### `conn` (Adjustment Required)
 
 The `conn` variable opens up the connection to your SQL database.  By default this script assumes it's running on the same machine as your SQL server and you've granted public write access as documented in the section above.  
 
@@ -114,13 +114,13 @@ Assuing you're using the default script you'll only need to update two fields:
 * Update `Server=<YOURSQL>\SQLEXPRESS;` with your Server name.
 * Update `Database=<YOURDB>;` with your database name.
 
-### `metric_names`
+### `metric_names` (Adjustment Optional)
 
 The `metric_names` variable allows you to define the specific metrics you want to see data with each object.  This variable simply appends to the JSON body of your POST request.
 
 As previously mentioned, if you choose to modify this list your will also need to update the SQL query inside the `myscript` variable in section 7.  I would discourage anyone not versed in SQL queries from making adjustments here.
 
-### `myfileheaders`
+### `myfileheaders` (Adjustment Optional)
 
 The `myfileheaders` variable appends a unique identifier at the front of the different time range .csvs and SQL tables.
 
@@ -148,7 +148,7 @@ c_res = '<your_third_new_fileheader>_responses.csv'
 
 Finally, you'd need to create new tables in your SQL server to match the new file header names you'd designated.
 
-### `mypath`
+### `mypath` (Adjustment Optional)
 
 The `mypath` variable simply points to the Assets folder in your current working directory.  It's highly unlikely that you'll ever need to adjust this variable.
 
