@@ -1,0 +1,87 @@
+C:\Users\<yourusername>\Documents\GitHub\post_to_sql\Assets\a_responses.csv
+Existing  a_responses.csv  found, generating new file.
+C:\Users\<yourusername>\Documents\GitHub\post_to_sql\Assets\b_responses.csv
+Existing  b_responses.csv  found, generating new file.
+C:\Users\<yourusername>\Documents\GitHub\post_to_sql\Assets\c_responses.csv
+Existing  c_responses.csv  found, generating new file.
+NA_SSP_Transaction_HSL_Voice a  --  request:  Status Code  200
+NA_SSP_Transaction_HSL_Voice b  --  request:  Status Code  200
+NA_SSP_Transaction_HSL_Voice c  --  request:  Status Code  200
+Compiling .csv for NA_SSP_Transaction_HSL_Voice
+EU_SSP_Transaction_HSL_Voice a  --  request:  Status Code  200
+EU_SSP_Transaction_HSL_Voice b  --  request:  Status Code  200
+EU_SSP_Transaction_HSL_Voice c  --  request:  Status Code  200
+Compiling .csv for EU_SSP_Transaction_HSL_Voice
+APAC_SSP_Transaction_HSL_Voice a  --  request:  Status Code  200
+APAC_SSP_Transaction_HSL_Voice b  --  request:  Status Code  200
+APAC_SSP_Transaction_HSL_Voice c  --  request:  Status Code  200
+Compiling .csv for APAC_SSP_Transaction_HSL_Voice
+Clear out existing  a_table to make room for updated csv.
+Updating  a_table with a_responses.csv
+Objects                   NA_SSP_Transaction_HSL_Voice
+Service_Level                   [[1587111654000, 100]]
+CurrNumberWaitingCalls            [[1587111654000, 0]]
+Total_Calls_Answered              [[1587111654000, 8]]
+Total_Abandoned                   [[1587111654000, 1]]
+Name: 0, dtype: object
+Objects                   EU_SSP_Transaction_HSL_Voice
+Service_Level                   [[1587111654000, 100]]
+CurrNumberWaitingCalls            [[1587111654000, 0]]
+Total_Calls_Answered              [[1587111654000, 8]]
+Total_Abandoned                   [[1587111654000, 1]]
+Name: 1, dtype: object
+Objects                   APAC_SSP_Transaction_HSL_Voice
+Service_Level                     [[1587111654000, 100]]
+CurrNumberWaitingCalls              [[1587111654000, 0]]
+Total_Calls_Answered                [[1587111654000, 8]]
+Total_Abandoned                     [[1587111654000, 1]]
+Name: 2, dtype: object
+Clear out existing  b_table to make room for updated csv.
+Updating  b_table with b_responses.csv
+Objects                   NA_SSP_Transaction_HSL_Voice
+Service_Level                   [[1587111654000, 100]]
+CurrNumberWaitingCalls            [[1587111654000, 0]]
+Total_Calls_Answered              [[1587111654000, 8]]
+Total_Abandoned                   [[1587111654000, 1]]
+Name: 0, dtype: object
+Objects                   EU_SSP_Transaction_HSL_Voice
+Service_Level                   [[1587111654000, 100]]
+CurrNumberWaitingCalls            [[1587111654000, 0]]
+Total_Calls_Answered              [[1587111654000, 8]]
+Total_Abandoned                   [[1587111654000, 1]]
+Name: 1, dtype: object
+Objects                   APAC_SSP_Transaction_HSL_Voice
+Service_Level                     [[1587111654000, 100]]
+CurrNumberWaitingCalls              [[1587111654000, 0]]
+Total_Calls_Answered                [[1587111654000, 8]]
+Total_Abandoned                     [[1587111654000, 1]]
+Name: 2, dtype: object
+Clear out existing  c_table to make room for updated csv.
+Updating  c_table with c_responses.csv
+Objects                   NA_SSP_Transaction_HSL_Voice
+Service_Level                   [[1587111654000, 100]]
+CurrNumberWaitingCalls            [[1587111654000, 0]]
+Total_Calls_Answered              [[1587111654000, 8]]
+Total_Abandoned                   [[1587111654000, 1]]
+Name: 0, dtype: object
+Objects                   EU_SSP_Transaction_HSL_Voice
+Service_Level                   [[1587111654000, 100]]
+CurrNumberWaitingCalls            [[1587111654000, 0]]
+Total_Calls_Answered              [[1587111654000, 8]]
+Total_Abandoned                   [[1587111654000, 1]]
+Name: 1, dtype: object
+Objects                   APAC_SSP_Transaction_HSL_Voice
+Total_Calls_Answered              [[1587111654000, 8]]
+Total_Abandoned                   [[1587111654000, 1]]
+Name: 0, dtype: object
+Objects                   EU_SSP_Transaction_HSL_Voice
+Service_Level                   [[1587111654000, 100]]
+CurrNumberWaitingCalls            [[1587111654000, 0]]
+Total_Calls_Answered              [[1587111654000, 8]]
+Total_Abandoned                   [[1587111654000, 1]]
+Name: 1, dtype: object
+Objects                   APAC_SSP_Transaction_HSL_Voice
+Service_Level                     [[1587111654000, 100]]
+CurrNumberWaitingCalls              [[1587111654000, 0]]
+Total_Calls_Answered                [[1587111654000, 8]]
+Total_Abandoned                     [[1587111654000, 1]]

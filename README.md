@@ -4,6 +4,8 @@ This project uses a combination of python script and .csvs to make dynamic POST 
 
 The script used is not a plug-n-play.  There are a number of variables you'll need to be sure to update in the [postunixtosql.py](postunixtosql.py) file.  All of these required updates are called out in this tutorial.
 
+**NOTE:** This script is intended for use on Windows OS.  Would likely require a multitide of code changes to be compatible with a non-Windows OS.
+
 ## Prerequisites
 
 * Download and install the latest version of [Python](https://www.python.org/downloads/).
@@ -148,5 +150,11 @@ c_res = '<your_third_new_fileheader>_responses.csv'
 ### `mypath`
 
 The `mypath` variable simply points to the Assets folder in your current working directory.  It's highly unlikely that you'll ever need to adjust this variable.
+
+## Running the script
+
+With your variables adjusted you should be able to run your script and see the results.  Open a command line, `cd` to the appropriate directory, and run the script `python postunixtosql.py`.
+
+If everything is configured correctly, you should get a successful execution script similar to [this](Assets/sampledata/successfulexecute.txt).
 
 
