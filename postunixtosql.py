@@ -5,7 +5,7 @@
 # Go to https://github.com/wkarges/post_to_sql for full documenation.
 
 ########################################################################################################################################
-# 1. Import necessary libs
+# 1. Import the necessary python libraries.
 
 import time
 import csv
@@ -15,7 +15,6 @@ import pandas as pd
 import os.path as op 
 import os
 import pyodbc
-import sqlite3 as sq3
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # 2. Global Variables
@@ -29,7 +28,7 @@ post_url = '<YOURPOSTURL>' # <-- Update with your POST URL
 # Open SQL connection, need to update Server and DB fields ↓ BELOW ↓
 conn = pyodbc.connect('Driver={SQL Server};'
                         'Server=<YOURSQL>\SQLEXPRESS;' # <-- Need to update Server name (probably something like <yourServerName\SQLExpress)
-                        'Database=,<YOURDB>;' # <-- Need to update DB name
+                        'Database=<YOURDB>;' # <-- Need to update DB name
                         'Trusted_Connection=yes;')
 
 # If username/pass and/or remote connection is required for SQL, comment out the code above and use the script ↓ BELOW ↓
@@ -39,10 +38,10 @@ conn = pyodbc.connect('Driver={SQL Server};'
 # **Warning** If you modify these fields, you will also need to update the `myscript` SQL query in the last code section.
 metric_names = "Service_Level", "CurrNumberWaitingCalls", "Total_Calls_Answered", "Total_Abandoned"
 
-# Set Time Headers **Important** Please carefully review the README before adjusting.
-mytimes = ["a", "b", "c"]
+# Set File Headers **Important** Please carefully review the README before adjusting.
+myfileheaders = ["a", "b", "c"]
 
-# Set Asset filepath
+# Set Asset filepath off current working directory
 mypath = os.getcwd() + "\\Assets\\"
 
 #----------------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +64,7 @@ ctime = fifteenmins()
 #----------------------------------------------------------------------------------------------------------------------------------------
 # 4. Reset responses csvs
 
-for x in mytimes:
+for x in myfileheaders:
     thetime = x
     setpath = mypath + thetime.strip() + "_responses.csv"
     setcsv = thetime.strip() + "_responses.csv"
@@ -105,7 +104,7 @@ with open(mypath+'objects.csv') as csvfile:
         #----------------------------------------------------------------------------------------------------------------------------------------
         # 6.1 Write back JSON to .csv
 
-        for x in mytimes:
+        for x in myfileheaders:
             curr_time = x
             my_json = "my_" + curr_time.strip() + "_json"
             my_request = requests.post(post_url, json=my_json)
@@ -171,7 +170,7 @@ with open(mypath+'objects.csv') as csvfile:
 
 cursor = conn.cursor()
 
-for x in mytimes:
+for x in myfileheaders:
     currdb_time = x
     mycsv = currdb_time.strip() + "_responses.csv"
     mytable = currdb_time.strip() + "_table"
