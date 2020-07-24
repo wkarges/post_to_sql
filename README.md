@@ -130,9 +130,8 @@ You'll need to change the `if` conditions for each dataframe at the bottom of se
 
 ```
 if x == "<your_new_fileheader_a>":
-.
-.
-.
+... "<your_new_fileheader_b>"
+... "<your_new_fileheader_c>"
 ```
 
 ![setdf_fileheaders.png](images/setdf_fileheaders.png)
