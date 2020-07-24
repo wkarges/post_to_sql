@@ -39,7 +39,7 @@ conn = pyodbc.connect('Driver={SQL Server};'
 # If username/pass and/or remote connection is required for SQL, comment out the code above and use the script ↓ BELOW ↓
 # conn = pyodbc.connect('DRIVER={FreeTDS};SERVER=yourserver.com;PORT=1433;DATABASE=your_db;UID=your_username;PWD=your_password;TDS_Version=7.2;')
 
-# Set Time Header **Do not modify**
+# Set Time Headers **Do not modify**
 mytimes = ["a", "b", "c"]
 
 # Set Asset filepath
@@ -64,6 +64,7 @@ ctime = fifteenmins()
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # 4. Reset responses csvs
+
 for x in mytimes:
     thetime = x
     setpath = mypath + thetime.strip() + "_responses.csv"

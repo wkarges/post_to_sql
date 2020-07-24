@@ -4,19 +4,6 @@ This project uses a combination of python script and .csvs to make dynamic POST 
 
 The script used is not a plug-n-play.  There are a number of variables you'll need to be sure to update in the [postunixtosql.py](postunixtosql.py) file.  All of these required updates are called out in this tutorial.
 
-## What this Script Does
-
-This script is used to address the complex requirements in the JSON body of this POST request.
-
-![RequestExample.png](images/RequestExample.png)
-
-The fields underlined in red are our primary focus but we'll address all the fields starting from the left.
-
-### Object Name
-
-The `"objectname":[*"NA_SSP_Transaction_HSL_Voice"*]}`
-
-
 ## Prerequisites
 
 * Download and install the latest version of [Python](https://www.python.org/downloads/).
@@ -30,14 +17,37 @@ The `"objectname":[*"NA_SSP_Transaction_HSL_Voice"*]}`
 
 * Install [MS SQL](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) or similar SQL RDB.
 
+## What this Script Does
+
+This script is used to address the complex requirements in the JSON body of this POST request.
+
+![RequestExample.png](images/RequestExample.png)
+
+The fields underlined in red are our primary focus but we'll address all the fields going from left to right.
+
+### Object Name
+
+For our usecase we need to gather client data across a number of different locations, called out as `objectname`.  Unfortunately the request we're working with requires the specific object to be listed in the JSON body of the post request (`"objectname":["<yourobjectname>"]}`), you can't just make a request to gather all data for all objects.
+
+![ObjectName.png](images/ObjectName.png)
+
+To solve for this requirement the [postunixtosql.py](postunixtosql.py) script pulls from a spreadsheet of user-defined object names and makes requests for each.  This allows for the user to define the specific objects they want to aggregate on the fly.
+
+By default this script uses Four Winds Interactive's FWI Cloud Tables (essentially online .csv) functionality.  If you're a non-FWI user you can simply comment out the `csv_url` and the entirety of section 5. in the script.  You'd then be able to update the [objects.csv](Assets/objects.csv) in the Assets folder to define your list of objects.
+
+### Unix Times
+
+The next fields to solve for are the `from` and `to` unix times required in the JSON body.
+
+![UnixTimes.png](images/UnixTimes.png)
+
+This POST request requires us to define the exact time range for which we want to see data.  This script defaults to three time ranges: 5, 10, and 15 minutes but these can easily be adjusted in section 3 (will explain further below).  You can also use the [postunixtosql_single.py](Assets/Unused/postunixtosql_single.py) script in the Assets/Unused folder if you only want metrics for a single time range.
+
+
+
 ## Getting Started
 
 First find a suitable file location for your `postunixtoSQL.py` script.  I'd recommend an empty folder on your `C:` drive.  This script will automatically generate the [objects.csv](Assets/sampledata/objects.csv) and various `_responses.csv` files in the Assets folder nested within the same folder as your script (unless you modify the file paths in the code).  You'll want to make sure the rest of that folder is empty as not to confuse yourself.
-
-
-.
-.
-.
 
 ## Create SQL DB & Table
 
