@@ -146,6 +146,8 @@ c_res = '<your_third_new_fileheader>_responses.csv'
 
 ![responsescsvsFileHeaders.png](images/responsescsvsFileHeaders.png)
 
+Finally, you'd need to create new tables in your SQL server to match the new file header names you'd designated.
+
 ### `mypath`
 
 The `mypath` variable simply points to the Assets folder in your current working directory.  It's highly unlikely that you'll ever need to adjust this variable.
