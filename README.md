@@ -93,6 +93,8 @@ With your SQL tables we can go ahead and configure the script.  Open up the [pos
 
 ![GlobalVariables.png](images/GlobalVariables.png)
 
+The first three variables require adjustment for the script to work, the rest are optional.
+
 ### `csv_url` (Adjustment Required)
 
 The `csv_url` variable requires the .csv Content Manager link from FWI Cloud for your Objects Table.  If you don't already have this table created, you can simply upload the [objects.csv](Assets/objects.csv) as a Table.
