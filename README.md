@@ -89,6 +89,8 @@ GRANT ALTER ON OBJECT::dbo.<your_table_name> TO public
 
 With your SQL tables we can go ahead and configure the script.  Open up the [postunixtosql.py](postunixtosql.py) and navigate to the `Global Variables` section.  They should be mostly self explanitory but I'll provide full descriptions below.
 
+![GlobalVariables.png](images/GlobalVariables.png)
+
 ### `csv_url`
 
 The `csv_url` variable requires the .csv Content Manager link from FWI Cloud for your Objects Table.  If you don't already have this table created, you can simply upload the [objects.csv](Assets/objects.csv) as a Table.
@@ -112,7 +114,35 @@ Assuing you're using the default script you'll only need to update two fields:
 
 ### `metric_names`
 
+The `metric_names` variable allows you to define the specific metrics you want to see data with each object.  This variable simply appends to the JSON body of your POST request.
 
+As previously mentioned, if you choose to modify this list your will also need to update the SQL query inside the `myscript` variable in section 7.  I would discourage anyone not versed in SQL queries from making adjustments here.
 
+### `myfileheaders`
+
+The `myfileheaders` variable appends a unique identifier at the front of the different time range .csvs and SQL tables.
+
+It's extremely important to note, if you want to change this naming convention you will also need to modify additional portions of code.  Specifically:
+
+You'll need to change the `if` conditions for each dataframe at the bottom of section 6.1.
+
+```
+if x == "<your_new_fileheader_a>":
+.
+.
+.
+```
+
+![setdf_fileheaders.png](images/setdf_fileheaders.png)
+
+You'll also need to adjust all the `_responses.csv` for each `_res` variable in section 6.2 to evaluate the approriately named .csv.
+
+```
+a_res = '<your_first_new_fileheader>_responses.csv'
+b_res = '<your_second_new_fileheader>_responses.csv'
+c_res = '<your_third_new_fileheader>_responses.csv'
+```
+
+![responsescsvsFileHeaders.png](images/responsescsvsFileHeaders.png)
 
 

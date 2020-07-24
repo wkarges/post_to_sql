@@ -135,35 +135,39 @@ with open(mypath+'objects.csv') as csvfile:
         #----------------------------------------------------------------------------------------------------------------------------------------
         # 6.2 Evaluate whether to write header
 
+        a_res = 'a_responses.csv'
+        b_res = 'b_responses.csv'
+        c_res = 'c_responses.csv'
+
         print("Compiling .csv for", myobject)
-        if op.isfile(mypath+'a_responses.csv'):
+        if op.isfile(mypath+a_res):
             aHeader = False
         else:
             aHeader = True
-        if op.isfile(mypath+'b_responses.csv'):
+        if op.isfile(mypath+b_res):
             bHeader = False
         else:
             bHeader = True
-        if op.isfile(mypath+'c_responses.csv'):
+        if op.isfile(mypath+c_res):
             cHeader = False
         else:
             cHeader = True
 
         if aHeader is True:
-            adf.to_csv(mypath+'a_responses.csv', mode='w', header=True)
+            adf.to_csv(mypath+a_res, mode='w', header=True)
             aHeader = False
         else:
-            adf.to_csv(mypath+'a_responses.csv', mode='a', header=False)
+            adf.to_csv(mypath+a_res, mode='a', header=False)
         if bHeader is True:
-            bdf.to_csv(mypath+'b_responses.csv', mode='w', header=True)
+            bdf.to_csv(mypath+b_res, mode='w', header=True)
             bHeader = False
         else:
-            bdf.to_csv(mypath+'b_responses.csv', mode='a', header=False)
+            bdf.to_csv(mypath+b_res, mode='a', header=False)
         if cHeader is True:
-            cdf.to_csv(mypath+'c_responses.csv', mode='w', header=True)
+            cdf.to_csv(mypath+c_res, mode='w', header=True)
             cHeader = False
         else:
-            cdf.to_csv(mypath+'c_responses.csv', mode='a', header=False)
+            cdf.to_csv(mypath+c_res, mode='a', header=False)
 
 #----------------------------------------------------------------------------------------------------------------------------------------
 # 7. Upload .csv to SQL.
