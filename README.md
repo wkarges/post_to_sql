@@ -145,4 +145,8 @@ c_res = '<your_third_new_fileheader>_responses.csv'
 
 ![responsescsvsFileHeaders.png](images/responsescsvsFileHeaders.png)
 
+### `mypath`
+
+The `mypath` variable simply points to the Assets folder in your current working directory.  It's highly unlikely that you'll ever need to adjust this variable.
+
 
