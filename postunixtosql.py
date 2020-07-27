@@ -5,7 +5,7 @@
 # Go to https://github.com/wkarges/post_to_sql for full documenation.
 
 ########################################################################################################################################
-# 1. Import the necessary python libraries.
+# SECTION 1. Import the necessary python libraries.
 
 import time
 import csv
@@ -17,7 +17,7 @@ import os
 import pyodbc
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 2. Global Variables
+# SECTION 2. Global Variables
 
 # 'API Objects' Cloud Table URL -> Specifically your desired objects to be aggregated.  Not needed if you're using a local objects.csv
 csv_url = "<YOURCLOUDTABLE>" # <-- Update with your FWI Cloud Table .csv
@@ -45,7 +45,7 @@ myfileheaders = ["a", "b", "c"]
 mypath = os.getcwd() + "\\Assets\\"
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 3. Make Time Calculations. These may need to be adjusted per client request.
+# SECTION 3. Make Time Calculations. These may need to be adjusted per client request.
 
 def fivemins():
     return int(time.time()-(5 * 60))
@@ -62,7 +62,7 @@ btime = tenmins()
 ctime = fifteenmins()
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 4. Reset responses csvs
+# SECTION 4. Reset responses csvs
 
 for x in myfileheaders:
     thetime = x
@@ -75,7 +75,7 @@ for x in myfileheaders:
         print("Existing ", setcsv, " found, generating new file.")
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 5. Script to pull down latest 'API Objects' Table.  ****This section can be commented out if you're using the local objects.csv****
+# SECTION 5. Script to pull down latest 'API Objects' Table.  ****This section can be commented out if you're using the local objects.csv****
 
 # """" <-- Remove pound signs above and below script if using local .csv
 table = pd.read_csv(csv_url)
@@ -85,7 +85,7 @@ new_file.to_csv(mypath+'objects.csv', sep=',', index=False)
 # """"
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 6. Parse objects and appy each one to each POST Request
+# SECTION 6. Parse objects and appy each one to each POST Request
 
 
 with open(mypath+'objects.csv') as csvfile:
@@ -102,7 +102,7 @@ with open(mypath+'objects.csv') as csvfile:
         my_fifteen_json = {"filters":{"objectname":[myobject]},"from":ctime,"to":now,"channels":["voice"],"timeInterval":"all","metricNames":[metric_names]}
 
         #----------------------------------------------------------------------------------------------------------------------------------------
-        # 6.1 Write back JSON to .csv
+        # SECTION 6.1 Write back JSON to .csv
 
         for x in myfileheaders:
             curr_time = x
@@ -110,7 +110,7 @@ with open(mypath+'objects.csv') as csvfile:
             my_request = requests.post(post_url, json=my_json)
             my_response = my_request.json()
 
-            print(myobject, curr_time, " -- ", "request: ", "Status Code ", my_request.status_code)
+            print(myobject, curr_time, "request: ", "Status Code ", my_request.status_code)
             
             #Set Dataframe as JSON response
             mydata = pd.read_json(my_response) # <-- This field should be my_response in production.
@@ -133,7 +133,7 @@ with open(mypath+'objects.csv') as csvfile:
                 cdf = df
         
         #----------------------------------------------------------------------------------------------------------------------------------------
-        # 6.2 Evaluate whether to write header
+        # SECTION 6.2 Evaluate whether to write header
 
         a_res = 'a_responses.csv'
         b_res = 'b_responses.csv'
@@ -170,7 +170,7 @@ with open(mypath+'objects.csv') as csvfile:
             cdf.to_csv(mypath+c_res, mode='a', header=False)
 
 #----------------------------------------------------------------------------------------------------------------------------------------
-# 7. Upload .csv to SQL.
+# SECTION 7. Upload .csv to SQL.
 
 cursor = conn.cursor()
 

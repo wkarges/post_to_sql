@@ -111,6 +111,8 @@ The `conn` variable opens up the connection to your SQL database.  By default th
 
 If your SQL server database has remote and/or credential requirements, you can comment out this variable and uncomment the `conn` below.  It "should" work but I haven't fully tested it so you may need to adjust some of the code on your own (probably start with the `pyodbc.connect` documentation.
 
+![AltSql.png](images/AltSql.png)
+
 Assuing you're using the default script you'll only need to update two fields:
 
 * Update `Server=<YOURSQL>\SQLEXPRESS;` with your Server name.

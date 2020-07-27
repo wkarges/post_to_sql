@@ -23,8 +23,8 @@ post_url = 'https://httpbin.org/post'
 # ****IMPORTANT**** - YOU NEED TO UPDATE THE SERVER AND DATABASE FIELDS BELOW ↓
 print("Connecting to SQL")
 conn = pyodbc.connect('Driver={SQL Server};'
-                        'Server=DESKTOP-V8I0892\SQLEXPRESS;' # <-- Need to update Server name
-                        'Database=PayPalTest;' # <-- Need to update DB name
+                        'Server=<YOURSERVERNAME>;' # <-- Need to update Server name
+                        'Database=<YOURDATABASENAME>;' # <-- Need to update DB name
                         'Trusted_Connection=yes;')
 print("Successfully Connected to SQL ")
 
